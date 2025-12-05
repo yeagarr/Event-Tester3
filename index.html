@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#080615" />
+  <title>Jam Gacor — Semua Provider</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070612; --bg1:#130a2f;
+      --glass: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --r: 20px;
+    }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(167,90,255,.30), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,214,102,.14), transparent 55%),
+        radial-gradient(1000px 700px at 50% 110%, rgba(86,255,214,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+    .wrap{ max-width:1200px; margin:0 auto; padding:22px 16px 60px }
+    .topbar{
+      position: sticky; top: 0; z-index: 30;
+      padding: 10px 0 14px;
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      background: linear-gradient(180deg, rgba(7,6,18,.78), rgba(7,6,18,.35));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .hero{
+      display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; justify-content:space-between;
+      padding: 14px 0 0;
+    }
+    h1{ margin:0; font-size:22px; letter-spacing:-.02em }
+    .sub{ margin:6px 0 0; color:var(--muted); font-size:13px; max-width:72ch; line-height:1.45 }
+    .controls{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: var(--glass);
+      border:1px solid var(--stroke);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    input[type="search"]{
+      width:min(360px, 70vw);
+      background: transparent; border:0; outline:0;
+      color:var(--text);
+      font-size:14px;
+    }
+    .btn{
+      appearance:none; border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20) }
+    .btn:active{ transform: translateY(0px) scale(.99) }
+    .chips{
+      display:flex; flex-wrap:wrap; gap:8px;
+      padding: 12px 0 10px;
+    }
+    .chip{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding:8px 10px;
+      border-radius: 999px;
+      font-size:12.5px;
+      cursor:pointer;
+      transition: background .12s ease, border-color .12s ease, transform .12s ease;
+      user-select:none;
+    }
+    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10) }
+    .chip.is-on{
+      background: rgba(167,90,255,.20);
+      border-color: rgba(167,90,255,.45);
+    }
+    .metaRow{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+      padding: 10px 0 0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 720px){ .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 420px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      min-height: 220px;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+    }
+    .thumb{
+      aspect-ratio: 1 / 1;
+      background: rgba(0,0,0,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+    }
+    .body{
+      padding: 10px 12px 12px;
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .title{
+      font-weight:800;
+      font-size: 13px;
+      letter-spacing: -.01em;
+      line-height:1.25;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+      min-height: 32px;
+    }
+    .tagRow{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    }
+    .tag{
+      font-size: 11px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.78);
+    }
+
+    /* modal */
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:80; padding:18px; }
+    .modal.is-on{ display:flex; }
+    .backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.62); backdrop-filter: blur(10px); }
+    .sheet{
+      position:relative;
+      width: min(860px, 94vw);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(18,10,45,.72);
+      box-shadow: 0 30px 90px rgba(0,0,0,.7);
+      overflow:hidden;
+    }
+    .sheetTop{
+      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .sheetH{
+      margin:0; font-size: 14px; font-weight: 900; letter-spacing:-.01em;
+    }
+    .sheetS{
+      margin: 6px 0 0; color: var(--muted); font-size: 12.5px; line-height:1.4;
+    }
+    .sheetAct{ display:flex; gap:8px; }
+    .sheetImg{
+      padding: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,.16);
+    }
+    .sheetImg img{
+      width: 100%;
+      height:auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      display:block;
+      max-height: 72vh;
+      object-fit: contain;
+      background: rgba(0,0,0,.22);
+    }
+    a.link{
+      color: rgba(167,90,255,.95);
+      text-decoration:none;
+    }
+    a.link:hover{ text-decoration:underline; }
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 90;
+    }
+    .toast.is-on{ opacity:1; transform: translateX(-50%) translateY(-2px); }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <h1>Jam Gacor — Semua Provider</h1>
+          <p class="sub">
+            Data diambil dari halaman provider (gambar RTP/“jam gacor” biasanya tertulis di gambar).
+            Klik kartu untuk lihat versi besar. (Bukan jaminan hasil; hanya tampilan info.)
+          </p>
+        </div>
+
+        <div class="controls">
+          <div class="pill">
+            <span style="opacity:.85;font-weight:800;font-size:12px">Cari</span>
+            <input id="q" type="search" placeholder="Cari nama game… (contoh: Olympus, Mahjong)" autocomplete="off" />
+          </div>
+          <button class="btn" id="btnRefresh">Refresh</button>
+          <button class="btn" id="btnAuto" aria-pressed="false">Auto: OFF</button>
+        </div>
+      </div>
+
+      <div class="chips" id="chips"></div>
+
+      <div class="metaRow">
+        <div id="metaLeft">–</div>
+        <div id="metaRight">–</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="sheet" role="dialog" aria-modal="true">
+      <div class="sheetTop">
+        <div>
+          <h3 class="sheetH" id="mTitle">–</h3>
+          <p class="sheetS" id="mSub">–</p>
+        </div>
+        <div class="sheetAct">
+          <a class="btn link" id="mSource" href="#" target="_blank" rel="noreferrer noopener">Buka sumber</a>
+          <button class="btn" id="mClose">Tutup</button>
+        </div>
+      </div>
+      <div class="sheetImg">
+        <img id="mImg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">–</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const grid = $("#grid");
+  const chips = $("#chips");
+  const q = $("#q");
+
+  const metaLeft = $("#metaLeft");
+  const metaRight = $("#metaRight");
+
+  const modal = $("#modal");
+  const backdrop = $("#backdrop");
+  const mClose = $("#mClose");
+  const mTitle = $("#mTitle");
+  const mSub = $("#mSub");
+  const mImg = $("#mImg");
+  const mSource = $("#mSource");
+
+  const toast = $("#toast");
+
+  const btnRefresh = $("#btnRefresh");
+  const btnAuto = $("#btnAuto");
+
+  const state = {
+    providers: [],
+    active: "all",
+    dataByProvider: new Map(), // key -> {updatedAt, items, source}
+    viewItems: [],
+    autoTimer: null,
+    autoOn: false,
+  };
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("is-on");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove("is-on"), 1200);
+  }
+
+  function setMeta(){
+    const total = state.viewItems.length;
+    const pLabel = state.providers.find(p => p.key === state.active)?.label || "—";
+    metaLeft.textContent = `Provider: ${pLabel} • Items: ${total.toLocaleString("id-ID")}`;
+
+    const last = getLastUpdated();
+    metaRight.textContent = last ? `Update: ${new Date(last).toLocaleString("id-ID")}` : "Update: –";
+  }
+
+  function getLastUpdated(){
+    if (state.active !== "all") return state.dataByProvider.get(state.active)?.updatedAt || null;
+    let newest = null;
+    for (const v of state.dataByProvider.values()){
+      if (!v?.updatedAt) continue;
+      if (!newest || v.updatedAt > newest) newest = v.updatedAt;
+    }
+    return newest;
+  }
+
+  function renderChips(){
+    chips.innerHTML = "";
+    for (const p of state.providers){
+      const el = document.createElement("div");
+      el.className = "chip" + (p.key === state.active ? " is-on" : "");
+      el.textContent = p.label;
+      el.onclick = () => {
+        state.active = p.key;
+        for (const c of chips.children) c.classList.remove("is-on");
+        el.classList.add("is-on");
+        refreshView();
+        loadIfNeeded();
+      };
+      chips.appendChild(el);
+    }
+  }
+
+  function cardTemplate(item){
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <div class="thumb"><img loading="lazy" src="${item.image}" alt=""></div>
+      <div class="body">
+        <div class="title">${escapeHtml(item.title)}</div>
+        <div class="tagRow">
+          <span class="tag">${escapeHtml(item.provider)}</span>
+          <span class="tag">Tap untuk detail</span>
+        </div>
+      </div>
+    `;
+    div.onclick = () => openModal(item);
+    return div;
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function openModal(item){
+    mTitle.textContent = item.title;
+    mSub.textContent = `Provider: ${item.provider}`;
+    mImg.src = item.image;
+    const src = state.providers.find(p => p.label === item.provider)?.url || state.dataByProvider.get(state.active)?.source || "#";
+    mSource.href = src === null ? "#" : src;
+    modal.classList.add("is-on");
+    modal.setAttribute("aria-hidden","false");
+  }
+  function closeModal(){
+    modal.classList.remove("is-on");
+    modal.setAttribute("aria-hidden","true");
+  }
+  backdrop.onclick = closeModal;
+  mClose.onclick = closeModal;
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+  function applySearch(items){
+    const needle = q.value.trim().toLowerCase();
+    if (!needle) return items;
+    return items.filter(x => (x.title || "").toLowerCase().includes(needle));
+  }
+
+  function refreshView(){
+    let items = [];
+    if (state.active === "all"){
+      for (const [key, pack] of state.dataByProvider.entries()){
+        if (!pack?.items) continue;
+        items = items.concat(pack.items);
+      }
+    } else {
+      items = state.dataByProvider.get(state.active)?.items || [];
+    }
+
+    items = applySearch(items);
+    state.viewItems = items;
+
+    grid.innerHTML = "";
+    if (!items.length){
+      grid.innerHTML = `<div style="grid-column:1/-1;opacity:.78;padding:14px 2px">
+        Belum ada data. Klik <b>Refresh</b> atau pilih provider lain.
+      </div>`;
+      setMeta();
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for (const it of items) frag.appendChild(cardTemplate(it));
+    grid.appendChild(frag);
+    setMeta();
+  }
+
+  async function fetchProvider(providerKey){
+    const r = await fetch(`/api/gacor?provider=${encodeURIComponent(providerKey)}`, { cache: "no-store" });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || "Gagal fetch");
+    state.dataByProvider.set(providerKey, { updatedAt: j.updatedAt, items: j.items, source: j.source });
+    // cache lokal biar cepat buka ulang
+    try { localStorage.setItem("gacor:"+providerKey, JSON.stringify(state.dataByProvider.get(providerKey))); } catch {}
+    return j;
+  }
+
+  function loadCache(providerKey){
+    try {
+      const raw = localStorage.getItem("gacor:"+providerKey);
+      if (!raw) return;
+      const pack = JSON.parse(raw);
+      if (pack?.items?.length) state.dataByProvider.set(providerKey, pack);
+    } catch {}
+  }
+
+  async function loadIfNeeded(){
+    if (state.active === "all"){
+      // load semua provider (kecuali all) bertahap
+      showToast("Load semua provider…");
+      const keys = state.providers.map(p => p.key).filter(k => k !== "all");
+      for (const k of keys){
+        if (!state.dataByProvider.get(k)?.items?.length){
+          try { await fetchProvider(k); }
+          catch { /* biarin */ }
+          refreshView();
+        }
+      }
+      showToast("Selesai.");
+      return;
+    }
+
+    const k = state.active;
+    if (state.dataByProvider.get(k)?.items?.length) return;
+
+    showToast("Mengambil data…");
+    try {
+      await fetchProvider(k);
+      showToast("OK");
+    } catch (e){
+      showToast("Gagal ambil data");
+    }
+    refreshView();
+  }
+
+  async function boot(){
+    // ambil daftar provider dari server (biar sinkron)
+    const r = await fetch("/api/gacor?provider=providers", { cache:"force-cache" });
+    const j = await r.json();
+    state.providers = j.providers || [];
+    // pastikan "Semua" ada di depan
+    state.providers = [
+      { key:"all", label:"Semua", url:null },
+      ...state.providers.filter(p => p.key !== "all")
+    ];
+
+    // pre-load cache
+    for (const p of state.providers){
+      if (p.key === "all") continue;
+      loadCache(p.key);
+    }
+
+    renderChips();
+    refreshView();
+    loadIfNeeded();
+  }
+
+  q.addEventListener("input", () => refreshView());
+  btnRefresh.onclick = () => loadIfNeeded();
+
+  btnAuto.onclick = () => {
+    state.autoOn = !state.autoOn;
+    btnAuto.textContent = state.autoOn ? "Auto: ON" : "Auto: OFF";
+    btnAuto.setAttribute("aria-pressed", state.autoOn ? "true" : "false");
+    showToast(state.autoOn ? "Auto refresh ON" : "Auto refresh OFF");
+
+    clearInterval(state.autoTimer);
+    state.autoTimer = null;
+
+    if (state.autoOn){
+      state.autoTimer = setInterval(() => loadIfNeeded(), 60000);
+    }
+  };
+
+  boot();
+})();
+</script>
+</body>
+</html>
